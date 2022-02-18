@@ -7,6 +7,7 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
 }
+/**************** Top Bar *******************/
 .top_bar{
     background-color: rgb(29, 29, 255);
     margin: 0 0 8rem 0;
@@ -21,10 +22,11 @@ h1{
   padding-bottom: 3.5rem;
   font-size: 30px;
 }
+/**** logo ****/
 header img{
     background-color: white;
 }
-
+/************** Body ************/
 .weekDays{
     background-color: white;
     display: flex;
@@ -32,7 +34,6 @@ header img{
     margin: 0 2rem;
     border-radius: 10px;
 }
-
 .weekDays div{
     background-color: rgb(0, 132, 255);
     color: white;

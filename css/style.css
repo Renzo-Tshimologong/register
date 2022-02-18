@@ -7,11 +7,11 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
 }
+/******* Top Bar *******/
 .top_bar{
     background-color: rgb(29, 29, 255);
     margin: 0 0 10rem 0;
 }
-
 h1{
   display: flex;
   justify-content: center;
@@ -22,8 +22,11 @@ h1{
   font-size: 30px;
 }
 header img{
+    /***logo***/
     background-color: white;
 }
+
+/*********** body *********/
 h2{
     color: white;
     text-align: center;
