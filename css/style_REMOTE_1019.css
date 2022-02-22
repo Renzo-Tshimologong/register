@@ -1,0 +1,45 @@
+*{
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+body{
+    background-image: url(../images/pngtree-blue-artificial-intelligence-technology-ai-robot-banner-image_196890.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+/******* Top Bar *******/
+.top_bar{
+    background-color: rgb(29, 29, 255);
+    margin: 0 0 10rem 0;
+}
+h1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  margin: -6.2rem 0;
+  padding-bottom: 3.5rem;
+  font-size: 30px;
+}
+header img{
+    /***logo***/
+    background-color: white;
+}
+
+/*********** body *********/
+h2{
+    color: white;
+    text-align: center;
+    font-size: 30px;
+}
+.camera{
+    text-align: center;
+    background-color: white;
+    margin: 5rem 25rem;
+    padding: 10rem 0;
+    border-radius: 10px;
+}
+p{
+    font-size: xx-large;
+}
+
