@@ -44,13 +44,37 @@ const camDiv = document.querySelector('.camera')
 const animeClass = document.querySelector('.animeClass')
 const errorclass = document.querySelector('.errorClass')
 
+const date = new Date().getDay();
+const currentTime = new Date().getHours();
 
-Promise.all([
-  faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
-  faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
-  faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
-  faceapi.nets.ssdMobilenetv1.loadFromUri('/models'),
-]).then(startVideo)
+function dateTimeRestriction(){
+  const dateTimeError = 
+  `
+    <style>
+      .errorClass{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+    <img src="images/Sorry.gif" alt="logo" with ="600" height="600"></img>
+    `
+
+    errorclass.innerHTML = dateTimeError
+}
+
+if ((date >= 1 && date <= 5) && (currentTime >= 8 && currentTime <= 10)) { // time restriction
+  Promise.all([
+    faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
+    faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
+    faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
+    faceapi.nets.ssdMobilenetv1.loadFromUri('/models'),
+  ]).then(startVideo)
+}
+else{
+  dateTimeRestriction()
+}
+
 
 function startVideo() {
   navigator.getUserMedia(
