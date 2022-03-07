@@ -71,7 +71,7 @@ function stopStreamedVideo(videoElem) {
   
   videoElem.srcObject = null;
 }
-
+//loading animation
 function loadAnimation(){
   
   const loadingString = 
@@ -167,7 +167,7 @@ function loadAnimation(){
 
   animeClass.innerHTML = loadingString
 }
-
+//user not found animation
 function errorAnimation(){
   const errorString = 
   `
@@ -201,11 +201,11 @@ video.addEventListener('play', () => {
 
   var labeledFaceDescriptors
   (async () => {
-    video.style.visibility = 'hidden'
-    loadAnimation()
+    video.style.visibility = 'hidden' //hide the video to make time for looping
+    loadAnimation() // load animation to make time for looping
     labeledFaceDescriptors = await loadLabeledImages()
-    animeClass.remove()
-    video.style.visibility = 'visible'
+    animeClass.remove() //remove animation after looping is done
+    video.style.visibility = 'visible' // display the video for authenticating after looping is done
     console.log("start")
     
     // video.play()
@@ -218,7 +218,7 @@ video.addEventListener('play', () => {
     canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
     
     
-    if (detections.length > 1) {
+    if (detections.length > 1) { // still going to work on this one
       console.log("2 faces detected");
     }else{
       
@@ -236,12 +236,12 @@ video.addEventListener('play', () => {
             
             if (result._label === "unknown") {
               console.log("no")
-              numUnknown++
-              if (numUnknown > 50) {
+              numUnknown++ // count the number of unknown encounters
+              if (numUnknown > 50) { //if the number of unknwon encounters is greater than 50 then execute this
                 stopStreamedVideo(video);
-                removeCanvas.remove()
+                removeCanvas.remove() 
                 videoDiv.remove()
-                errorAnimation()
+                errorAnimation() // load error animation if encounters are greater than 50
               }
 
             }
@@ -249,8 +249,8 @@ video.addEventListener('play', () => {
               stopStreamedVideo(video);
               removeCanvas.remove()
               videoDiv.remove()
-              welcome(result._label);
-              timeFunction()
+              welcome(result._label); //welcome note once authenticated
+              timeFunction() // once authenticated call the time function to move on to the next page automatically 
             }
           })
         }
@@ -260,7 +260,7 @@ video.addEventListener('play', () => {
   }, 200)
 })
 
-function welcome(message){
+function welcome(message){  //welcome not html injection
   // message.substring(message.slice(0, -1))
   const welcomeMessage = 
   `
@@ -356,7 +356,7 @@ function loadLabeledImages() {
   )
 }
 
-function timeFunction() {
+function timeFunction() { // move to the next page after 3 seconds
   setTimeout(function(){
     window.location = 'statPage.html'; }, 3000);
  }
