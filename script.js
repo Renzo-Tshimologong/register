@@ -46,13 +46,37 @@ const camDiv = document.querySelector('.camera')
 const animeClass = document.querySelector('.animeClass')
 const errorclass = document.querySelector('.errorClass')
 
+const date = new Date().getDay();
+const currentTime = new Date().getHours();
 
-Promise.all([
-  faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
-  faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
-  faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
-  faceapi.nets.ssdMobilenetv1.loadFromUri('/models'),
-]).then(startVideo)
+function dateTimeRestriction(){
+  const dateTimeError = 
+  `
+    <style>
+      .errorClass{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+    <img src="images/Sorry.gif" alt="logo" with ="600" height="600"></img>
+    `
+
+    errorclass.innerHTML = dateTimeError
+}
+
+if ((date >= 1 && date <= 5) && (currentTime >= 8 && currentTime <= 10)) { // time restriction
+  Promise.all([
+    faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
+    faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
+    faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
+    faceapi.nets.ssdMobilenetv1.loadFromUri('/models'),
+  ]).then(startVideo)
+}
+else{
+  dateTimeRestriction()
+}
+
 
 function startVideo() {
   navigator.getUserMedia(
@@ -73,7 +97,7 @@ function stopStreamedVideo(videoElem) {
   
   videoElem.srcObject = null;
 }
-
+//loading animation
 function loadAnimation(){
   
   const loadingString = 
@@ -169,7 +193,7 @@ function loadAnimation(){
 
   animeClass.innerHTML = loadingString
 }
-
+//user not found animation
 function errorAnimation(){
   const errorString = 
   `
@@ -203,11 +227,11 @@ video.addEventListener('play', () => {
 
   var labeledFaceDescriptors
   (async () => {
-    video.style.visibility = 'hidden'
-    loadAnimation()
+    video.style.visibility = 'hidden' //hide the video to make time for looping
+    loadAnimation() // load animation to make time for looping
     labeledFaceDescriptors = await loadLabeledImages()
-    animeClass.remove()
-    video.style.visibility = 'visible'
+    animeClass.remove() //remove animation after looping is done
+    video.style.visibility = 'visible' // display the video for authenticating after looping is done
     console.log("start")
     
     // video.play()
@@ -220,7 +244,7 @@ video.addEventListener('play', () => {
     canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
     
     
-    if (detections.length > 1) {
+    if (detections.length > 1) { // still going to work on this one
       console.log("2 faces detected");
     }else{
       
@@ -238,23 +262,29 @@ video.addEventListener('play', () => {
             
             if (result._label === "unknown") {
               console.log("no")
-              numUnknown++
-              if (numUnknown > 50) {
+              numUnknown++ // count the number of unknown encounters
+              if (numUnknown > 50) { //if the number of unknwon encounters is greater than 50 then execute this
                 stopStreamedVideo(video);
-                removeCanvas.remove()
+                removeCanvas.remove() 
                 videoDiv.remove()
-                errorAnimation()
+                errorAnimation() // load error animation if encounters are greater than 50
               }
 
             }
             else{
               stopStreamedVideo(video);
               removeCanvas.remove()
+<<<<<<< HEAD
               videoDiv.remove();
               WriteData(result._label);
               sessionStorage.setItem('username', result._label);
               welcome(result._label);
               timeFunction()
+=======
+              videoDiv.remove()
+              welcome(result._label); //welcome note once authenticated
+              timeFunction() // once authenticated call the time function to move on to the next page automatically 
+>>>>>>> 80409a158fbe697da99b218fbe5fddec8e355f73
             }
           })
         }
@@ -264,7 +294,7 @@ video.addEventListener('play', () => {
   }, 200)
 })
 
-function welcome(message){
+function welcome(message){  //welcome not html injection
   // message.substring(message.slice(0, -1))
   const welcomeMessage = 
   `
@@ -360,7 +390,7 @@ function loadLabeledImages() {
   )
 }
 
-function timeFunction() {
+function timeFunction() { // move to the next page after 3 seconds
   setTimeout(function(){
   window.location = 'stats.html'; }, 3000);
  }
