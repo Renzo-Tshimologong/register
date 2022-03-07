@@ -1,99 +1,99 @@
-*{
+* {
     box-sizing: border-box;
     font-family: sans-serif;
-}
-body{
+  }
+  body {
     background-image: url(../images/pngtree-blue-artificial-intelligence-technology-ai-robot-banner-image_196890.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-
-    
-}
-/******* Top Bar *******/
-header{
+  }
+  /******* Top Bar *******/
+  header {
     width: 100%;
-}
-nav{
+  }
+  nav {
     background-color: rgb(29, 29, 255);
     margin-top: -1rem;
     width: 100%;
     height: 9.5rem;
-}
-h1{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  margin: -6.2rem 0;
-  padding-bottom: 3.5rem;
-  font-size: 30px;
-}
-section{
+  }
+  h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin: -6.2rem 0;
+    padding-bottom: 3.5rem;
+    font-size: 30px;
+  }
+  section {
     width: 100%;
-}
-img{
+  }
+  nav img {
     background-color: white;
-    
-}
-
-/*********** body *********/
-h2{
+  }
+  
+  /*********** body *********/
+  h2 {
     color: white;
     text-align: center;
     font-size: 30px;
-}
-section.camera{
+  }
+  /* section.camera {
     text-align: center;
     background-color: white;
     margin: 5rem 25rem;
     padding: 10rem 0;
     border-radius: 10px;
     width: 50%;
-}
-p{
+  } */
+  p {
     font-size: xx-large;
-}
-section.body_style{
+  }
+  section.body_style {
     width: 100%;
-}
-/* ---------------------------------------------------------Responsiveness=-----------------------------------------------------------*/
-@media  screen and (min-width: 360px) and (max-width:541px) {
-
-    nav{
-        width: 100%;
-        height: 6rem;
+  }
+  /* ---------------------------------------------------------Responsiveness=-----------------------------------------------------------*/
+  @media screen and (min-width: 360px) and (max-width: 541px) {
+    nav {
+      width: 100%;
+      height: 6rem;
     }
-    h1{
-        font-size: 1rem;
-        padding-top: 3rem;
-        padding-left: 2.3rem;
-    
+    h1 {
+      font-size: 1rem;
+      padding-top: 3rem;
+      padding-left: 2.3rem;
     }
     nav img {
-        width: 25%;
+      width: 25%;
     }
     /* --------------------------------------------------BODY-------------------------------------------------------------------------- */
-    h2{
-        font-size: 1rem;
+    h2 {
+      font-size: 1rem;
     }
-    /* section.camera{
-        margin:  1.5rem 5rem;
-    } */
-    
-    
-    
-}
-@media screen and (min-width:768px) and (max-width: 1024px ){
-
-    body{
-        width: 100%;
+    section.camera {
+      margin: 1.5rem 5rem;
     }
-    section.camera{
-        height: 3rem;
-        margin: 1.5rem 15rem;
+  }
+  
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    body {
+      width: 100%;
     }
-
-}
-    
-
-
+    section.camera {
+      height: 3rem;
+      margin: 1.5rem 15rem;
+    }
+  }
+  
+  /*-------------------------------------------------- Video style --------------------------------------------------*/
+  .videoDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  canvas {
+    position: absolute;
+  }
+  
