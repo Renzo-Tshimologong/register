@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css"/>
+   
+    <title>My Statistics</title>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js">
+
+    </script>
+    <header>
+        <nav>
+            <img src="./images/tshimologongLogo.gif" alt="tshimologong Logo" class="logo"/>
+            <h1 id = "title">Samsung App Factory</h1>
+        </nav>
+    </header>
+    <section class="daysContainer">
+        <section id="1" class="day">
+            <h2>M</h2>
+            
+            <h4 id="MonDate" class="date"></h4>
+            <h3 class="time">Time</h3>
+        </section>
+        <section id="2" class="day">
+
+            <h2>T</h2>
+            <h4 id="TueDate" class="date"></h4>
+            <h3>Time</h3>
+
+        </section>
+        <section id="3" class="day">
+            <h2>W</h2>
+            <h4 id="WedDate" class="date"></h4>
+            <h3>Time</h3>
+        </section>
+        <section id="4" class="day">
+            <h2>T</h2>
+            <h4 id="ThurDate" class="date"></h4>
+            <h3>Time</h3>
+        </section>
+        <section id="5" class="day">
+            <h2>F</h2>
+            <h4 id="FriDate" class="date"></h4>
+            <h3>Time</h3>
+        </section>
+    </section>
+    <section class="chartContainer">
+        <section>
+            chart 1
+            <canvas id="chart1">
+
+            </canvas>
+        </section>
+        <section>
+            chart 2
+            <canvas id="chart2" class="chart2">
+
+            </canvas>
+        </section>
+    </section>
+    <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-firestore.js"></script>
+    <script src="./fire.js"></script>
+    <script src="./stats.js"></script>
+  
+  
+</body>
+</html>
