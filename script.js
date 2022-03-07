@@ -37,6 +37,8 @@
 // app.listen(PORT, () => console.log(`listening on ${PORT}`));
 
 
+
+
 const video = document.getElementById('video')
 const videoDiv = document.querySelector('.videoDiv')
 
@@ -272,9 +274,17 @@ video.addEventListener('play', () => {
             else{
               stopStreamedVideo(video);
               removeCanvas.remove()
+<<<<<<< HEAD
+              videoDiv.remove();
+              WriteData(result._label);
+              sessionStorage.setItem('username', result._label);
+              welcome(result._label);
+              timeFunction()
+=======
               videoDiv.remove()
               welcome(result._label); //welcome note once authenticated
               timeFunction() // once authenticated call the time function to move on to the next page automatically 
+>>>>>>> 80409a158fbe697da99b218fbe5fddec8e355f73
             }
           })
         }
@@ -382,5 +392,44 @@ function loadLabeledImages() {
 
 function timeFunction() { // move to the next page after 3 seconds
   setTimeout(function(){
-    window.location = 'statPage.html'; }, 3000);
+  window.location = 'stats.html'; }, 3000);
  }
+
+ async function  WriteData (userName){
+  const database = firebase.firestore();
+  const userCollection = database.collection(`users/`)
+
+  const currentDate = new Date();
+ const StringTime =  currentDate.toLocaleTimeString({
+    weekday: 'short', // long, short, narrow
+    day: 'numeric', // numeric, 2-digit
+    year: 'numeric', // numeric, 2-digit
+    month: 'long', // numeric, 2-digit, long, short, narrow
+    hour: 'numeric', // numeric, 2-digit
+    minute: 'numeric', // numeric, 2-digit
+    second: 'numeric', // numeric, 2-digit
+});
+const StringDate = currentDate.toLocaleDateString({
+  weekday: 'short', // long, short, narrow
+  day: 'numeric', // numeric, 2-digit
+  year: 'numeric', // numeric, 2-digit
+  month: 'long', // numeric, 2-digit, long, short, narrow
+  hour: 'numeric', // numeric, 2-digit
+  minute: 'numeric', // numeric, 2-digit
+  second: 'numeric', // numeric, 2-digit
+});
+const day = 3; 
+console.log(StringTime);
+  try{
+    let docRef = userCollection.doc(`${userName.slice(0,-1)}`).collection('day').doc(day.toString()).set({
+      first: userName,
+      time: StringTime,
+      date: StringDate,
+      day: currentDate.getDay(),
+      present:1,
+    })
+    console.log("document written with ID: ", docRef.id)
+  }catch(e){
+    console.error(e);
+  }
+}
