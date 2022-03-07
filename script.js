@@ -52,7 +52,7 @@ video.addEventListener('play', () => {
     }else{
       
       
-      if (detections[0].alignedRect._score *100 > 80) {  //restricting the face at a certain percentage
+     // if (detections[0].alignedRect._score *100 > 80) {  //restricting the face at a certain percentage
         if (labeledFaceDescriptors) {
           const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.48)
           const results = resizedDetections.map(d => faceMatcher.findBestMatch(d.descriptor))
@@ -68,13 +68,14 @@ video.addEventListener('play', () => {
               // console.log(result._label)
             }
             else{
+              /*
               stopStreamedVideo(video);
               rem.remove()
-              welcome(result._label);
+              welcome(result._label);*/
             }
           })
         }
-      }
+      //}
     }
     
   }, 200)

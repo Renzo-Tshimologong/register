@@ -6,6 +6,8 @@ body{
     background-image: url(../images/pngtree-blue-artificial-intelligence-technology-ai-robot-banner-image_196890.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+
+    
 }
 /******* Top Bar *******/
 header{
@@ -74,9 +76,9 @@ section.body_style{
     h2{
         font-size: 1rem;
     }
-    section.camera{
+    /* section.camera{
         margin:  1.5rem 5rem;
-    }
+    } */
     
     
     
