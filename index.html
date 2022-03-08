@@ -5,8 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="css/style.css">
     <script  src="face-api.min.js"></script>
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
     
 </head>
 <body>
@@ -26,12 +28,63 @@
                 </div>
                 <div class="videoDiv">
                     <video id="video" width="620" height="560" autoplay muted></video>
-                  </div>
+                </div>
 
-                  <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
-                 <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-firestore.js"></script>
-                 <script src="./fire.js"></script>
-                    <script src="./script.js"></script>
+                <div class="w3-container adminDiv">
+            
+                    <table id="myTable" class="w3-table-all">
+                    <tr>
+                        <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(1)')" style="cursor:pointer">Name</th>
+                        <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(2)')" style="cursor:pointer">Date</th>
+                        <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(3)')" style="cursor:pointer">Signature</th>
+                    </tr>
+                    <tr class="item">
+                        <td>Berglunds snabbköp</td>
+                        <td>01/01/2022</td>
+                        <td>k.l</td>
+                    </tr>
+                    <tr class="item">
+                        <td>North/South</td>
+                        <td>01/01/2022</td>
+                        <td>k.l</td>
+                    </tr>
+                    <tr class="item">
+                        <td>Alfreds Futterkiste</td>
+                        <td>02/01/2022</td>
+                        <td>k.l</td>
+                    </tr>
+                    <tr class="item">
+                        <td>Königlich Essen</td>
+                        <td>03/01/2022</td>
+                        <td>k.l</td>
+                    </tr>
+                    <tr class="item">
+                        <td>Magazzini Alimentari Riuniti</td>
+                        <td>01/01/2022</td>
+                        <td>l.l</td>
+                    </tr>
+                    <tr class="item">
+                        <td>Paris spécialités</td>
+                        <td>05/01/2022</td>
+                        <td>k.l</td>
+                    </tr>
+                    <tr class="item">
+                        <td>Island Trading</td>
+                        <td>04/01/2022</td>
+                        <td>k.l</td>
+                    </tr>
+                    <tr class="item">
+                        <td>Laughing Bacchus Winecellars</td>
+                        <td>01/01/2022</td>
+                        <td>k.u</td>
+                    </tr>
+                    </table>
+                </div>
+
+                <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
+                <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-firestore.js"></script>
+                <script src="./fire.js"></script>
+                <script src="./script.js"></script>
                   
             </section>
         </section>

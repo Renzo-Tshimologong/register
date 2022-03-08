@@ -65,7 +65,7 @@ function dateTimeRestriction(){
     errorclass.innerHTML = dateTimeError
 }
 
-if ((date >= 1 && date <= 5) && (currentTime >= 8 && currentTime <= 10)) { // time restriction
+if ((date >= 1 && date <= 5) && (currentTime >= 8 && currentTime <= 18)) { // time restriction
   Promise.all([
     faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
     faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
@@ -210,6 +210,97 @@ function errorAnimation(){
 
   errorclass.innerHTML = errorString
 }
+/*
+function adminPage(){
+  const loadAdmin = 
+  `
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <style>
+        nav {
+          background-color: rgb(29, 29, 255);
+          margin-top: -1rem;
+          width: 100%;
+          height: 9.5rem;
+        }
+        h1 {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: white;
+          margin: -6.2rem 0;
+          padding-bottom: 3.5rem;
+          font-size: 30px;
+        }
+        div{
+          //background-color: white;
+        }
+    </style>
+  <div class="w3-container">
+
+
+
+        <table id="myTable" class="w3-table-all">
+        <tr>
+            <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(1)')" style="cursor:pointer">Name</th>
+            <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(2)')" style="cursor:pointer">Date</th>
+            <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(3)')" style="cursor:pointer">Signature</th>
+        </tr>
+        <tr class="item">
+            <td>Berglunds snabbköp</td>
+            <td>01/01/2022</td>
+            <td>k.l</td>
+        </tr>
+        <tr class="item">
+            <td>North/South</td>
+            <td>01/01/2022</td>
+            <td>k.l</td>
+        </tr>
+        <tr class="item">
+            <td>Alfreds Futterkiste</td>
+            <td>02/01/2022</td>
+            <td>k.l</td>
+        </tr>
+        <tr class="item">
+            <td>Königlich Essen</td>
+            <td>03/01/2022</td>
+            <td>k.l</td>
+        </tr>
+        <tr class="item">
+            <td>Magazzini Alimentari Riuniti</td>
+            <td>01/01/2022</td>
+            <td>k.l</td>
+        </tr>
+        <tr class="item">
+            <td>Paris spécialités</td>
+            <td>05/01/2022</td>
+            <td>k.l</td>
+        </tr>
+        <tr class="item">
+            <td>Island Trading</td>
+            <td>04/01/2022</td>
+            <td>k.l</td>
+        </tr>
+        <tr class="item">
+            <td>Laughing Bacchus Winecellars</td>
+            <td>01/01/2022</td>
+            <td>k.l</td>
+        </tr>
+        </table>
+    </div>
+  `
+
+  errorclass.innerHTML = loadAdmin
+}
+*/
+function adminPage() {
+  var x = document.querySelector(".w3-container");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
 
 let numUnknown = 0
 
@@ -228,7 +319,8 @@ video.addEventListener('play', () => {
   var labeledFaceDescriptors
   (async () => {
     video.style.visibility = 'hidden' //hide the video to make time for looping
-    loadAnimation() // load animation to make time for looping
+    // adminPage()
+    // loadAnimation() // load animation to make time for looping
     labeledFaceDescriptors = await loadLabeledImages()
     animeClass.remove() //remove animation after looping is done
     video.style.visibility = 'visible' // display the video for authenticating after looping is done
@@ -270,6 +362,12 @@ video.addEventListener('play', () => {
                 errorAnimation() // load error animation if encounters are greater than 50
               }
 
+            }
+            else if(result._label === "Molefe1" || result._label === "Molefe2"){// acting as the admin
+              stopStreamedVideo(video);
+              removeCanvas.remove()
+              videoDiv.remove();
+              // adminPage()
             }
             else{
               stopStreamedVideo(video);
