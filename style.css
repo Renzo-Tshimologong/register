@@ -13,8 +13,9 @@ body{
     background-repeat: no-repeat;
 
 }
+/**/
 .logo{
-    width: 5%;
+    width: 5%; 
 }
 nav h1{
     margin-top: 2rem;
