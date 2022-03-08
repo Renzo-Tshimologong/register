@@ -284,6 +284,7 @@ video.addEventListener('play', () => {
               stopStreamedVideo(video);
               removeCanvas.remove()
               videoDiv.remove();
+              sessionStorage.setItem('username',result._label );
               WriteData(result._label);
               sessionStorage.setItem('username', result._label);
               welcome(result._label);
