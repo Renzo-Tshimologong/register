@@ -211,16 +211,6 @@ function errorAnimation(){
   errorclass.innerHTML = errorString
 }
 
-/*
-function adminPage() {
-  var x = document.querySelector(".w3-container");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}*/
-
 let numUnknown = 0
 
 video.addEventListener('play', () => {
@@ -281,15 +271,14 @@ video.addEventListener('play', () => {
               }
 
             }
-            else if(result._label === "Molefe1" || result._label === "Molefe2"){// acting as the admin
-              const adminName = result._label
+            else if(result._label === "Molefe1" || result._label === "Molefe2"){// acting as the admi
               stopStreamedVideo(video);
               removeCanvas.remove()
               videoDiv.remove();
               WriteData(result._label);
               sessionStorage.setItem('username', result._label);
               welcome(result._label);
-              timeFunction()
+              timeFunction()// once authenticated call the time function to move on to the next page automatically 
             }
             else{
               stopStreamedVideo(video);
@@ -432,7 +421,7 @@ const StringDate = currentDate.toLocaleDateString({
   minute: 'numeric', // numeric, 2-digit
   second: 'numeric', // numeric, 2-digit
 });
-const day = 3; 
+const day = currentDate.getDay(); 
 console.log(StringTime);
   try{
     let docRef = userCollection.doc(`${userName.slice(0,-1)}`).collection('day').doc(day.toString()).set({
@@ -440,7 +429,7 @@ console.log(StringTime);
       time: StringTime,
       date: StringDate,
       day: currentDate.getDay(),
-      present:1,
+      present:day,
     })
     console.log("document written with ID: ", docRef.id)
   }catch(e){
