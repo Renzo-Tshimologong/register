@@ -274,17 +274,11 @@ video.addEventListener('play', () => {
             else{
               stopStreamedVideo(video);
               removeCanvas.remove()
-<<<<<<< HEAD
               videoDiv.remove();
               WriteData(result._label);
               sessionStorage.setItem('username', result._label);
               welcome(result._label);
               timeFunction()
-=======
-              videoDiv.remove()
-              welcome(result._label); //welcome note once authenticated
-              timeFunction() // once authenticated call the time function to move on to the next page automatically 
->>>>>>> 80409a158fbe697da99b218fbe5fddec8e355f73
             }
           })
         }
