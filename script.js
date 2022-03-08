@@ -65,7 +65,7 @@ function dateTimeRestriction(){
     errorclass.innerHTML = dateTimeError
 }
 
-if ((date >= 1 && date <= 5) && (currentTime >= 8 && currentTime <= 10)) { // time restriction
+if ((date >= 1 && date <= 5) && (currentTime >= 8 && currentTime <= 18)) { // time restriction
   Promise.all([
     faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
     faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
@@ -271,14 +271,24 @@ video.addEventListener('play', () => {
               }
 
             }
+            else if(result._label === "Molefe1" || result._label === "Molefe2"){// acting as the admi
+              stopStreamedVideo(video);
+              removeCanvas.remove()
+              videoDiv.remove();
+              WriteData(result._label);
+              sessionStorage.setItem('username', result._label);
+              welcome(result._label);
+              timeFunction()// once authenticated call the time function to move on to the next page automatically 
+            }
             else{
               stopStreamedVideo(video);
               removeCanvas.remove()
               videoDiv.remove();
               sessionStorage.setItem('username',result._label );
               WriteData(result._label);
-              welcome(result._label); //welcome note once authenticated
-              timeFunction() // once authenticated call the time function to move on to the next page automatically 
+              sessionStorage.setItem('username', result._label);
+              welcome(result._label);
+              timeFunction()
             }
           })
         }
