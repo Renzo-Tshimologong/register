@@ -420,7 +420,7 @@ console.log(StringTime);
       time: StringTime,
       date: StringDate,
       day: currentDate.getDay(),
-      present:1,
+      present:day,
     })
     console.log("document written with ID: ", docRef.id)
   }catch(e){
