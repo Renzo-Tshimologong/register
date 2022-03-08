@@ -1,7 +1,6 @@
 
 
 
-
 let MyChart = document.getElementById("chart1").getContext('2d');
 let chart2 =  document.getElementById("chart2").getContext('2d');
 let title = document.getElementById("title");
@@ -12,6 +11,9 @@ const database = firebase.firestore();
 const userCollection = database.collection(`users`);
 const day = 1;
 const present = [];
+
+console.log(currentUser)
+
 for(let x = 1; x < 6; x++){
 
     userCollection.doc(`${currentUser.slice(0,-1)}`).collection('day').doc(x.toString()).get().then(user=>{
