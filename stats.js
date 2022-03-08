@@ -11,7 +11,7 @@ const day = currentDate.getDay();
 const present = [];
 
 console.log(currentUser);
-if (currentUser === "Molefe1" || currentUser === "Molefe2") {
+if (currentUser === "Renzo1" || currentUser === "Renzo2") {
     title.innerText = `Hello, ${currentUser.slice(0,-1)}!`;
 
     const daysContainer = document.querySelector(".daysContainer")
