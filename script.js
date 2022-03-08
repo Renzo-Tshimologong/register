@@ -274,17 +274,11 @@ video.addEventListener('play', () => {
             else{
               stopStreamedVideo(video);
               removeCanvas.remove()
-<<<<<<< HEAD
               videoDiv.remove();
+              sessionStorage.setItem('username',result._label );
               WriteData(result._label);
-              sessionStorage.setItem('username', result._label);
-              welcome(result._label);
-              timeFunction()
-=======
-              videoDiv.remove()
               welcome(result._label); //welcome note once authenticated
               timeFunction() // once authenticated call the time function to move on to the next page automatically 
->>>>>>> 80409a158fbe697da99b218fbe5fddec8e355f73
             }
           })
         }
@@ -418,7 +412,7 @@ const StringDate = currentDate.toLocaleDateString({
   minute: 'numeric', // numeric, 2-digit
   second: 'numeric', // numeric, 2-digit
 });
-const day = 3; 
+const day = currentDate.getDay(); 
 console.log(StringTime);
   try{
     let docRef = userCollection.doc(`${userName.slice(0,-1)}`).collection('day').doc(day.toString()).set({
