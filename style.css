@@ -41,7 +41,7 @@ section.day h3{
     margin-top: 1rem;
 }
 section.day h4{
-    margin-top: 3rem;
+    margin: 0;
 }
 section.chartContainer section{
     width: 80%;
