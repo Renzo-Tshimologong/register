@@ -48,6 +48,7 @@ const errorclass = document.querySelector('.errorClass')
 
 const date = new Date().getDay();
 const currentTime = new Date().getHours();
+let numUnknown = 0
 
 function dateTimeRestriction(){
   const dateTimeError = 
@@ -86,7 +87,7 @@ function startVideo() {
   )
 }
 
-// stop video
+//--------------------------------------------------------------------Stop Video Function--------------------------------------------------------------//
 function stopStreamedVideo(videoElem) {
   const stream = videoElem.srcObject;
   const tracks = stream.getTracks();
@@ -97,7 +98,7 @@ function stopStreamedVideo(videoElem) {
   
   videoElem.srcObject = null;
 }
-//loading animation
+//-------------------------------------------------------------------loading animation function----------------------------------------------------//
 function loadAnimation(){
   
   const loadingString = 
@@ -193,7 +194,9 @@ function loadAnimation(){
 
   animeClass.innerHTML = loadingString
 }
-//user not found animation
+//-------------------------------------------------------------------End loading animation function----------------------------------------------------//
+
+//---------------------------------------------------------------Error Function-------------------------------------------------------------------//
 function errorAnimation(){
   const errorString = 
   `
@@ -210,8 +213,8 @@ function errorAnimation(){
 
   errorclass.innerHTML = errorString
 }
+//--------------------------------------------------------------- End Error Function-------------------------------------------------------------------//
 
-let numUnknown = 0
 
 video.addEventListener('play', () => {
 
@@ -237,7 +240,7 @@ video.addEventListener('play', () => {
     // video.play()
   })()
 
-  
+  //--------------------------------Main Function-----------------------------------------------------------------------------------------//
   setInterval(async () => {
     const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptors()
     const resizedDetections = faceapi.resizeResults(detections, displaySize)
@@ -271,21 +274,13 @@ video.addEventListener('play', () => {
               }
 
             }
-            else if(result._label === "Molefe1" || result._label === "Molefe2"){// acting as the admi
-              stopStreamedVideo(video);
-              removeCanvas.remove()
-              videoDiv.remove();
-              WriteData(result._label);
-              sessionStorage.setItem('username', result._label);
-              welcome(result._label);
-              timeFunction()// once authenticated call the time function to move on to the next page automatically 
-            }
             else{
               stopStreamedVideo(video);
               removeCanvas.remove()
               videoDiv.remove();
               sessionStorage.setItem('username',result._label );
               WriteData(result._label);
+              Admin(result._label)
               sessionStorage.setItem('username', result._label);
               welcome(result._label);
               timeFunction()
@@ -297,7 +292,7 @@ video.addEventListener('play', () => {
     
   }, 200)
 })
-
+//------------------------------------------------------------------------Welcome Function-------------------------------------------------//
 function welcome(message){  //welcome not html injection
   // message.substring(message.slice(0, -1))
   const welcomeMessage = 
@@ -372,7 +367,9 @@ function welcome(message){  //welcome not html injection
   
   camDiv.innerHTML = welcomeMessage
 }
+//------------------------------------------------------------------------End Welcome Function-------------------------------------------------//
 
+//----------------------------------------------------------------------Labels Function----------------------------------------------------//
 function loadLabeledImages() {
   // const labels = ['Eight','Five','Four','Molefe','Nine','Renzo','Seven','Six','Ten','v1','v2','v3','v4','v5','v6','v7','v8','v9']
   // const labels = ['Renzo1','Renzo2','s1','s2','t1','t2','u1','u2','v1','v2','w1','w2','Molefe1','Molefe2','x1','x2','y1','y2','z1','z2']
@@ -393,47 +390,64 @@ function loadLabeledImages() {
     })
   )
 }
+//----------------------------------------------------------------------End Labels Function----------------------------------------------------//
 
+//-------------------------------------------------------------------Navigates to the Next Page-----------------------------------------------------//
 function timeFunction() { // move to the next page after 3 seconds
   setTimeout(function(){
   window.location = 'stats.html'; }, 3000);
  }
+//-------------------------------------------------------------------End Navigates to the Next Page-----------------------------------------------------//
 
+ //------------------------------------------------------------------------Writes user data----------------------------------------------------------//
  async function  WriteData (userName){
-  const database = firebase.firestore();
+   
+  const database = firebase.firestore();// reference to database
+  
   const userCollection = database.collection(`users/`)
 
   const currentDate = new Date();
- const StringTime =  currentDate.toLocaleTimeString({
-    weekday: 'short', // long, short, narrow
-    day: 'numeric', // numeric, 2-digit
-    year: 'numeric', // numeric, 2-digit
-    month: 'long', // numeric, 2-digit, long, short, narrow
-    hour: 'numeric', // numeric, 2-digit
-    minute: 'numeric', // numeric, 2-digit
-    second: 'numeric', // numeric, 2-digit
-});
-const StringDate = currentDate.toLocaleDateString({
-  weekday: 'short', // long, short, narrow
-  day: 'numeric', // numeric, 2-digit
-  year: 'numeric', // numeric, 2-digit
-  month: 'long', // numeric, 2-digit, long, short, narrow
-  hour: 'numeric', // numeric, 2-digit
-  minute: 'numeric', // numeric, 2-digit
-  second: 'numeric', // numeric, 2-digit
-});
-const day = currentDate.getDay(); 
-console.log(StringTime);
+ const StringTime =  currentDate.toLocaleTimeString();
+  const StringDate = currentDate.toLocaleDateString();
+  const day = currentDate.getDay(); 
+
+  //-------------------------------------------------------------Error Handling Block----------------------------//
   try{
     let docRef = userCollection.doc(`${userName.slice(0,-1)}`).collection('day').doc(day.toString()).set({
       first: userName,
       time: StringTime,
       date: StringDate,
       day: currentDate.getDay(),
-      present:day,
+      present:'present',
     })
     console.log("document written with ID: ", docRef.id)
   }catch(e){
     console.error(e);
   }
+  //-------------------------------------------------------------End Error Handling Block----------------------------//
 }
+//------------------------------------------------------------------------ End Writes user data----------------------------------------------------------//
+
+//--------------------------------------------------------------------------- Admin Data function---------------------------------------------------//
+function Admin(userName){
+  const database = firebase.firestore();
+  const currentDate = new Date();
+  const date = currentDate.toLocaleDateString();
+  const day = currentDate.getDay().toString(); 
+  let formatDate = date.replaceAll('/','-');
+  console.log(formatDate)
+  const adminCollection = database.collection('admin/');
+  const StringTime =  currentDate.toLocaleTimeString();
+  try{
+      adminCollection.doc(`${formatDate}`).collection(`${userName.slice(0,-1)}`).doc('1').set({
+        name:userName,
+        signature: userName,
+        time: StringTime,
+        date: date,
+        presence:'present',
+      })
+  }catch(e){
+    console.error(e);
+  }
+}
+//---------------------------------------------------------------------------End Admin Data Function---------------------------------------------------//
