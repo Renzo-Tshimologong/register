@@ -9,9 +9,9 @@ const userCollection = database.collection(`users`);
 const currentDate = new Date();
 const day = currentDate.getDay();
 const present = [];
-
+//<input type="date" id="date" name="date"></input> 
 console.log(currentUser);
-if (currentUser === "Renzo1" || currentUser === "Renzo2") {
+if (currentUser === "Molefe1" || currentUser === "Molefe2") {
     title.innerText = `Hello, ${currentUser.slice(0,-1)}!`;
 
     const daysContainer = document.querySelector(".daysContainer")
@@ -19,6 +19,7 @@ if (currentUser === "Renzo1" || currentUser === "Renzo2") {
     const adminDiv = document.querySelector(".adminDiv");
     const loadAdmin=
     `
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         .w3-container{
             padding:5rem 5rem;
@@ -34,59 +35,70 @@ if (currentUser === "Renzo1" || currentUser === "Renzo2") {
             margin-left: 85%;
             color: #ffcc05;
         }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
     </style>
     <!--<h1>Hello, ${currentUser.slice(0,-1)}!</h1>-->
 
     <div class="w3-container">
                 
-                        <table id="myTable" class="w3-table-all">
-                        <tr>
-                            <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(1)')" style="cursor:pointer">Name</th>
-                            <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(2)')" style="cursor:pointer">Date</th>
-                            <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(3)')" style="cursor:pointer">Signature</th>
-                        </tr>
-                        <tr class="item">
-                            <td>Berglunds snabbköp</td>
-                            <td>01/01/2022</td>
-                            <td>k.l</td>
-                        </tr>
-                        <tr class="item">
-                            <td>North/South</td>
-                            <td>01/01/2022</td>
-                            <td>k.l</td>
-                        </tr>
-                        <tr class="item">
-                            <td>Alfreds Futterkiste</td>
-                            <td>02/01/2022</td>
-                            <td>k.l</td>
-                        </tr>
-                        <tr class="item">
-                            <td>Königlich Essen</td>
-                            <td>03/01/2022</td>
-                            <td>k.l</td>
-                        </tr>
-                        <tr class="item">
-                            <td>Magazzini Alimentari Riuniti</td>
-                            <td>01/01/2022</td>
-                            <td>l.l</td>
-                        </tr>
-                        <tr class="item">
-                            <td>Paris spécialités</td>
-                            <td>05/01/2022</td>
-                            <td>k.l</td>
-                        </tr>
-                        <tr class="item">
-                            <td>Island Trading</td>
-                            <td>04/01/2022</td>
-                            <td>k.l</td>
-                        </tr>
-                        <tr class="item">
-                            <td>Laughing Bacchus Winecellars</td>
-                            <td>01/01/2022</td>
-                            <td>k.u</td>
-                        </tr>
-                        </table>
-    </div>
+        <table id="myTable" class="w3-table-all">
+        <tr>
+            <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(1)')" style="cursor:pointer">Name</th>
+            <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(2)')" style="cursor:pointer">Date <input type="date" id="date" name="date"></input> <i class="fa fa-arrows-v"></th>
+            <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(3)')" style="cursor:pointer">Signature</th>
+        </tr>
+        <tr class="item">
+            <td>Berglunds snabbköp</td>
+            <td>01/01/2022</td>
+            <td>k.l</td>
+        </tr>
+        <tr class="item">
+            <td>North/South</td>
+            <td>01/01/2022</td>
+            <td>k.l</td>
+        </tr>
+        <tr class="item">
+            <td>Alfreds Futterkiste</td>
+            <td>02/01/2022</td>
+            <td>k.l</td>
+        </tr>
+        <tr class="item">
+            <td>Königlich Essen</td>
+            <td>03/01/2022</td>
+            <td>k.l</td>
+        </tr>
+        <tr class="item">
+            <td>Magazzini Alimentari Riuniti</td>
+            <td>01/01/2022</td>
+            <td>l.l</td>
+        </tr>
+        <tr class="item">
+            <td>Paris spécialités</td>
+            <td>05/01/2022</td>
+            <td>k.l</td>
+        </tr>
+        <tr class="item">
+            <td>Island Trading</td>
+            <td>04/01/2022</td>
+            <td>k.l</td>
+        </tr>
+        <tr class="item">
+            <td>Laughing Bacchus Winecellars</td>
+            <td>01/01/2022</td>
+            <td>k.u</td>
+        </tr>
+        </table>
+</div>
 
     `
     adminDiv.innerHTML = loadAdmin
