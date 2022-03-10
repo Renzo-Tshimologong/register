@@ -5,9 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://www.w3schools.com/lib/w3.js"></script>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    
     <link rel="stylesheet" href="./style.css"/>
-   
     <title>My Statistics</title>
 </head>
 <body>
@@ -61,8 +60,15 @@
     </section>
 
     <section>
-        <div class="adminDiv">
+        <div >
 
+            <table id="myTable">
+                <tr>
+                    <th class="username" onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(1)')" style="cursor:pointer">Name</th>
+                    <th class="date" onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(2)')" style="cursor:pointer">Date</th>
+                    <th class="signature"  onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(3)')" style="cursor:pointer">Signature</th>
+                </tr>
+            </table>
         </div>
     </section>
     <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>

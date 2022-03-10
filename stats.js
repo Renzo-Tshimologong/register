@@ -4,6 +4,7 @@ let MyChart = document.getElementById("chart1").getContext('2d');
 let title = document.getElementById("title");
 let timer = document.querySelector('.time');
 let dateMon = document.getElementById('MonDate');
+let table = document.getElementById('myTable');
 const currentUser = sessionStorage.getItem('username');
 const database = firebase.firestore();
 const userCollection = database.collection(`users`);
@@ -21,7 +22,8 @@ function statsLogic(){
         const time = currentDate.toLocaleTimeString();
         const hour = time[0] + time[1];
         
-        
+        // displays table when admin
+        table.style.display = "inline-block";
     
         
     
@@ -32,31 +34,9 @@ function statsLogic(){
     
         let userData = [];
        
-        const adminDiv = document.querySelector(".adminDiv");
-        const table = document.createElement('table');
-        const initTableRow = document.createElement('tr');
-        const tablehead1 = document.createElement('th');
-        const tablehead2 = document.createElement('th');
-        const tablehead3 = document.createElement('th');
+       
     
-        table.id = "myTable";
-        table.className = "w3-table-all";
-    
-        tablehead1.onclick = "w3.sortHTML('#myTable', '.item', 'td:nth-child(1)')" ;
-        tablehead1.style = "cursor:pointer";
-        tablehead1.innerText = "Name";
-    
-        tablehead2.onclick = "w3.sortHTML('#myTable', '.item', 'td:nth-child(2)')" ;
-        tablehead2.style = "cursor:pointer";
-        tablehead2.innerText = "Date";
-    
-        tablehead3.onclick = "w3.sortHTML('#myTable', '.item', 'td:nth-child(3)')" ;
-        tablehead3.style = "cursor:pointer";
-        tablehead3.innerText = "Signature";
-        initTableRow.appendChild(tablehead1);
-        initTableRow.appendChild(tablehead2);
-        initTableRow.appendChild(tablehead3);
-        table.appendChild(initTableRow);
+        
     
         users.map(user=>{
     
@@ -96,6 +76,10 @@ function statsLogic(){
                         let td2 = document.createElement('td');
                         let td3 = document.createElement('td');
                 
+                        td1.className = 'username';
+                        td2.className = 'date';
+                        td3.className = 'signature';
+
                         td1.innerText = userData[x].name.slice(0,-1);
                         td2.innerText = userData[x].date;
                         td3.innerText = userData[x].signature;
@@ -106,7 +90,6 @@ function statsLogic(){
     
                         
                     }
-                    adminDiv.appendChild(table);    
                     daysContainer.remove()
                     chartContainer.remove()
                 }
@@ -125,6 +108,9 @@ function statsLogic(){
     }
     else{
         // ---------------------------------------------User UI-------------------------------------------//
+
+        // hides table when not admin
+        table.style.display = "none";
         for(let x = 1; x < 6; x++){
         
             userCollection.doc(`${currentUser.slice(0,-1)}`).collection('day').doc(x.toString()).get().then(user=>{
