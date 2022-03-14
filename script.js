@@ -271,7 +271,7 @@ video.addEventListener('play', () => {
               }
 
             }
-            else if(result._label === "Molefe1" || result._label === "Molefe2"){// acting as the admi
+            else if(result._label === "Renzo1" || result._label === "Renzo2"){// acting as the admi
               stopStreamedVideo(video);
               removeCanvas.remove()
               videoDiv.remove();
