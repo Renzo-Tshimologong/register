@@ -5,6 +5,7 @@ let title = document.getElementById("title");
 let timer = document.querySelector('.time');
 let dateMon = document.getElementById('MonDate');
 let table = document.getElementById('myTable');
+sessionStorage.setItem('username','Renzo1');
 const currentUser = sessionStorage.getItem('username');
 const database = firebase.firestore();
 const userCollection = database.collection(`users`);
@@ -26,7 +27,7 @@ dynamicDate.addEventListener('change', ()=>{
 })
 function statsLogic(){
     // ---------------------------------Admin UI---------------------------------------------------------//
-    if (currentUser === "Molefe1" || currentUser === "Molefe2") {
+    if (currentUser === "Renzo1" || currentUser === "Renzo2") {
         title.innerText = `Hello, ${currentUser.slice(0,-1)}!`;
        
         const date = currentDate.toLocaleDateString();
@@ -60,61 +61,68 @@ function statsLogic(){
             adminCollection.doc(`${dateFormat||formatDate}`).collection(users[i]).doc('1').get().then(data=>{
                 if(data.exists){
                    
-                        // if(hour >= '10'){
-                        //     adminCollection.doc(`${formatDate}`).collection(users[i]).doc('1').update({
-                        //         signature:'absent'
-                        //     }).catch((e)=>console.error(e));
-                        //     userCollection.doc(users[i]).collection('day').doc(day.toString()).get().then(data=>{
-                        //         if(data.exists){
+                        if(hour >= '10'){
+                            adminCollection.doc(`${formatDate}`).collection(users[i]).doc('1').update({
+                                signature:'absent'
+                            }).catch((e)=>console.error(e));
+                            userCollection.doc(users[i]).collection('day').doc(day.toString()).get().then(data=>{
+                                if(data.exists){
         
-                        //         }else{
-                        //             userCollection.doc(users[i]).collection('day').doc(day.toString()).set({
-                        //                 first: users[x],
-                        //                 time: time,
-                        //                 date: date,
-                        //                 day: currentDate.getDay(),
-                        //                 present: 'absent',
+                                }else{
+                                    userCollection.doc(users[i]).collection('day').doc(day.toString()).set({
+                                        first: users[x],
+                                        time: time,
+                                        date: date,
+                                        day: currentDate.getDay(),
+                                        present: 'absent',
           
-                        //             })
-                        //         }
-                        //     })
-                        // }
+                                    })
+                                }
+                            })
+                        }
                    
                     
-                    userData[i] = data.data();
-                 
-                    console.log(data.data());
+                    
     
                      
                 }
                 
         
+                
     
-                    let tr = document.createElement('tr');
-                    tr.className = "item";
-                    let td1 = document.createElement('td');
-                    let td2 = document.createElement('td');
-                    let td3 = document.createElement('td');
-            
-                    td1.className = 'username';
-                    td2.className = 'date';
-                    td3.className = 'signature';
 
-                    td1.innerText = userData[i].name.slice(0,-1);
-                    td2.innerText = userData[i].date;
-                    td3.innerText = userData[i].signature;
-                    tr.appendChild(td1);
-                    tr.appendChild(td2);
-                    tr.appendChild(td3);
-                    table.appendChild(tr);
-
-               
-                daysContainer.remove()
-                chartContainer.remove()
             })
 
-            console.log(userData);
         
+            adminCollection.doc(`${dateFormat||formatDate}`).collection(users[i]).doc('1').onSnapshot((doc)=>{
+                if(doc.exists){
+
+                    userData[i] = doc.data();
+             
+                console.log(doc.data());
+                let tr = document.createElement('tr');
+                tr.className = "item";
+                let td1 = document.createElement('td');
+                let td2 = document.createElement('td');
+                let td3 = document.createElement('td');
+        
+                td1.className = 'username';
+                td2.className = 'date';
+                td3.className = 'signature';
+
+                td1.innerText = userData[i].name.slice(0,-1);
+                td2.innerText = userData[i].date;
+                td3.innerText = userData[i].signature;
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                tr.appendChild(td3);
+                table.appendChild(tr);
+
+           
+            daysContainer.remove()
+            chartContainer.remove()
+                }
+            })
         }
         
     
