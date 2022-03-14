@@ -5,7 +5,6 @@ let title = document.getElementById("title");
 let timer = document.querySelector('.time');
 let dateMon = document.getElementById('MonDate');
 let table = document.getElementById('myTable');
-sessionStorage.setItem('username','Renzo1');
 const currentUser = sessionStorage.getItem('username');
 const database = firebase.firestore();
 const userCollection = database.collection(`users`);
