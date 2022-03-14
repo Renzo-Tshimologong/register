@@ -26,7 +26,7 @@ dynamicDate.addEventListener('change', ()=>{
 })
 function statsLogic(){
     // ---------------------------------Admin UI---------------------------------------------------------//
-    if (currentUser === "Renzo1" || currentUser === "Renzo2") {
+    if (currentUser === "Molefe1" || currentUser === "Molefe2") {
         title.innerText = `Hello, ${currentUser.slice(0,-1)}!`;
        
         const date = currentDate.toLocaleDateString();
@@ -157,6 +157,7 @@ function statsLogic(){
                     if(section.id === x.toString()){
                         section.childNodes[3].innerText = date;
                         section.childNodes[5].innerText = time;
+                        section.childNodes[7].innerText = pres;
                         present[x] = pres;
                         console.log(present[x]);
                         let massPopChart = new Chart(MyChart, {
