@@ -1,155 +1,200 @@
+// ------------------------------------------------------Declaritives-------------------------------------------------------//
 
 let MyChart = document.getElementById("chart1").getContext('2d');
 let title = document.getElementById("title");
 let timer = document.querySelector('.time');
 let dateMon = document.getElementById('MonDate');
+let table = document.getElementById('myTable');
 const currentUser = sessionStorage.getItem('username');
 const database = firebase.firestore();
 const userCollection = database.collection(`users`);
 const currentDate = new Date();
 const day = currentDate.getDay();
+let dynamicDate = document.getElementById('date');
 const present = [];
+let dateFormat = '';
+dynamicDate.addEventListener('change', ()=>{
 
-console.log(currentUser);
-if (currentUser === "Renzo1" || currentUser === "Renzo2") {
-    title.innerText = `Hello, ${currentUser.slice(0,-1)}!`;
+    let value = dynamicDate.value;
 
-    const daysContainer = document.querySelector(".daysContainer")
-    const chartContainer = document.querySelector(".chartContainer")
-    const adminDiv = document.querySelector(".adminDiv");
-    const loadAdmin=
-    `
-    <style>
-        .w3-container{
-            padding:5rem 5rem;
-        }
-        nav{
-            display: flex;
-            padding: 0;
-            margin: 0;
-            background-color: #0b2343;
-        }
-        nav h1{
-            margin-top: 2rem;
-            margin-left: 85%;
-            color: #ffcc05;
-        }
-    </style>
-    <!--<h1>Hello, ${currentUser.slice(0,-1)}!</h1>-->
-
-    <div class="w3-container">
-                
-                        <table id="myTable" class="w3-table-all">
-                        <tr>
-                            <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(1)')" style="cursor:pointer">Name</th>
-                            <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(2)')" style="cursor:pointer">Date</th>
-                            <th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(3)')" style="cursor:pointer">Signature</th>
-                        </tr>
-                        <tr class="item">
-                            <td>Berglunds snabbköp</td>
-                            <td>01/01/2022</td>
-                            <td>k.l</td>
-                        </tr>
-                        <tr class="item">
-                            <td>North/South</td>
-                            <td>01/01/2022</td>
-                            <td>k.l</td>
-                        </tr>
-                        <tr class="item">
-                            <td>Alfreds Futterkiste</td>
-                            <td>02/01/2022</td>
-                            <td>k.l</td>
-                        </tr>
-                        <tr class="item">
-                            <td>Königlich Essen</td>
-                            <td>03/01/2022</td>
-                            <td>k.l</td>
-                        </tr>
-                        <tr class="item">
-                            <td>Magazzini Alimentari Riuniti</td>
-                            <td>01/01/2022</td>
-                            <td>l.l</td>
-                        </tr>
-                        <tr class="item">
-                            <td>Paris spécialités</td>
-                            <td>05/01/2022</td>
-                            <td>k.l</td>
-                        </tr>
-                        <tr class="item">
-                            <td>Island Trading</td>
-                            <td>04/01/2022</td>
-                            <td>k.l</td>
-                        </tr>
-                        <tr class="item">
-                            <td>Laughing Bacchus Winecellars</td>
-                            <td>01/01/2022</td>
-                            <td>k.u</td>
-                        </tr>
-                        </table>
-    </div>
-
-    `
-    adminDiv.innerHTML = loadAdmin
-
-    daysContainer.remove()
-    chartContainer.remove()
-
-
-
-
-}
-else{
-    for(let x = 1; x < 6; x++){
+            let year = value[0] + value[1] + value[2]+ value[3];
+            let month = value[5] + value[6];
+            let day = value[8] + value[9];
+            dateFormat = `${day}-${month}-${year}`;
+            dynamicDate.value = dateFormat
+            console.log(dateFormat);
+})
+function statsLogic(){
+    // ---------------------------------Admin UI---------------------------------------------------------//
+    if (currentUser === "Molefe1" || currentUser === "Molefe2") {
+        title.innerText = `Hello, ${currentUser.slice(0,-1)}!`;
+       
+        const date = currentDate.toLocaleDateString();
+        
+        const time = currentDate.toLocaleTimeString();
+        const hour = time[0] + time[1];
+        
+        // displays table when admin
+        table.style.display = "inline-block";
     
-        userCollection.doc(`${currentUser.slice(0,-1)}`).collection('day').doc(x.toString()).get().then(user=>{
-            if(user.exists){
-                console.log(user.data());
-                let username = user.data().first;
-                let time = user.data().time;
-                let date = user.data().date;
-                let pres = user.data().present;
-                console.log(pres);
-                if(currentUser === username){
-                    title.innerText = `Hello, ${username.slice(0,-1)}!`;
+        
+        
     
+        let formatDate = date.replaceAll('/','-');
+
+        
+        
+        
+        
+        const adminCollection = database.collection('admin');
+        console.log(formatDate)
+        const users = ["Renzo", "Molefe", "Barbara"];
+    
+        const userData = [];
+       
+       
+    
+    
+        console.log(dynamicDate.defaultValue)
+        for(let i = 0; i < users.length; i++){
+            adminCollection.doc(`${dateFormat||formatDate}`).collection(users[i]).doc('1').get().then(data=>{
+                if(data.exists){
+                   
+                        // if(hour >= '10'){
+                        //     adminCollection.doc(`${formatDate}`).collection(users[i]).doc('1').update({
+                        //         signature:'absent'
+                        //     }).catch((e)=>console.error(e));
+                        //     userCollection.doc(users[i]).collection('day').doc(day.toString()).get().then(data=>{
+                        //         if(data.exists){
+        
+                        //         }else{
+                        //             userCollection.doc(users[i]).collection('day').doc(day.toString()).set({
+                        //                 first: users[x],
+                        //                 time: time,
+                        //                 date: date,
+                        //                 day: currentDate.getDay(),
+                        //                 present: 'absent',
+          
+                        //             })
+                        //         }
+                        //     })
+                        // }
+                   
                     
-                }
+                    userData[i] = data.data();
+                 
+                    console.log(data.data());
     
-                let section = document.getElementById(x.toString());
-                if(section.id === x.toString()){
-                    section.childNodes[3].innerText = date;
-                    section.childNodes[5].innerText = time;
-                    present[x] = pres;
-                    console.log(present[x]);
-                    let massPopChart = new Chart(MyChart, {
-                        type:'bar',
-                        data:{
-                            labels:['Days Attended', 'Days Absent'],
-                            datasets:[{
-                                label:'Register',
-                                data:[present[x], 1],
-                                backgroundColor:['#0b2343', '#ffcc05'],
-                                borderWidth: 1,
-                                borderColor:'white',
-                                hoverBorderColor:'orange'
-                            }],
-                        },
-                        options:{
-                            title:{
-                                display:true,
-                                text:'The Days Marking The Register',
-                                fontSize: 25,
-                            }
-                        }
-            
-                    })
+                     
                 }
+                
+        
+    
+                    let tr = document.createElement('tr');
+                    tr.className = "item";
+                    let td1 = document.createElement('td');
+                    let td2 = document.createElement('td');
+                    let td3 = document.createElement('td');
             
-            }
-        }).catch(error=> console.error(error));
-    }
+                    td1.className = 'username';
+                    td2.className = 'date';
+                    td3.className = 'signature';
 
+                    td1.innerText = userData[i].name.slice(0,-1);
+                    td2.innerText = userData[i].date;
+                    td3.innerText = userData[i].signature;
+                    tr.appendChild(td1);
+                    tr.appendChild(td2);
+                    tr.appendChild(td3);
+                    table.appendChild(tr);
+
+               
+                daysContainer.remove()
+                chartContainer.remove()
+            })
+
+            console.log(userData);
+        
+        }
+        
+    
+        
+    
+            
+        
+        
+        const daysContainer = document.querySelector(".daysContainer")
+        const chartContainer = document.querySelector(".chartContainer")
+        
+       
+    
+    
+    
+    
+    }
+    else{
+        // ---------------------------------------------User UI-------------------------------------------//
+
+        // hides table when not admin
+        table.style.display = "none";
+        for(let x = 1; x < 6; x++){
+        
+            userCollection.doc(`${currentUser.slice(0,-1)}`).collection('day').doc(x.toString()).get().then(user=>{
+                if(user.exists){
+                    console.log(user.data());
+                    let username = user.data().first;
+                    let time = user.data().time;
+                    let date = user.data().date;
+                    let pres = user.data().present;
+                    console.log(pres);
+                    if(currentUser === username){
+                        title.innerText = `Hello, ${username.slice(0,-1)}!`;
+        
+                        
+                    }
+        
+                    let section = document.getElementById(x.toString());
+                    if(section.id === x.toString()){
+                        section.childNodes[3].innerText = date;
+                        section.childNodes[5].innerText = time;
+                        section.childNodes[7].innerText = pres;
+                        present[x] = pres;
+                        console.log(present[x]);
+                        let massPopChart = new Chart(MyChart, {
+                            type:'bar',
+                            data:{
+                                labels:['Days Attended', 'Days Absent'],
+                                datasets:[{
+                                    label:'Register',
+                                    data:[present[x], 1],
+                                    backgroundColor:['#0b2343', '#ffcc05'],
+                                    borderWidth: 1,
+                                    borderColor:'white',
+                                    hoverBorderColor:'orange'
+                                }],
+                            },
+                            options:{
+                                title:{
+                                    display:true,
+                                    text:'The Days Marking The Register',
+                                    fontSize: 25,
+                                }
+                            }
+                
+                        })
+                    }
+                
+                }
+            }).catch(error=> console.error(error));
+        }
+    
+    }
 }
+statsLogic();
+document.getElementById('query').addEventListener('click', statsLogic)
+
+
+
 
 
  

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Monoton&family=Orbitron&display=swap');
 *{
     margin: 0;
     padding: 0;
@@ -54,3 +55,42 @@ section.chartContainer section{
     box-shadow: 2px 5px 10px;
     background-color: white;
 }
+
+table{
+    margin: 0.5rem;
+    margin-top: 2rem;
+    width: 95%;
+    border-collapse: collapse;
+    border: 0.5px solid lightgray;
+    
+    
+}
+th.username, th.date, th.signature{
+    width: 30rem;
+    padding: 1rem;
+    background-color: #ffcc05;
+    color: white;
+    font-family: sans-serif;
+    font-weight: bolder;
+}
+tr.item{
+    width: 50rem;
+    text-align: center;
+    
+}
+tr:nth-child(even){
+    background-color: #0b2343;
+    color:white;
+}
+td.username, td.date, td.signature{
+    padding: 1rem;
+    font-family: sans-serif;
+}
+tr:hover{
+    margin: 1rem;
+    padding: 1.5rem;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+
