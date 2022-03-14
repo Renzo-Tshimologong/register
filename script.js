@@ -76,6 +76,7 @@ if ((date >= 1 && date <= 5) && (currentTime >= 8 && currentTime <= 18)) { // ti
 }
 else{
   dateTimeRestriction()
+  video.remove()
 }
 
 
@@ -104,7 +105,6 @@ function loadAnimation(){
   const loadingString = 
   `
   <style>
-
       .lds-spinner {
         margin: 5rem 50%;
         color: official;
@@ -187,7 +187,6 @@ function loadAnimation(){
       
       
     </style>
-
     <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
   
   `
@@ -208,7 +207,6 @@ function errorAnimation(){
       }
     </style>
     <img src="images/oops.gif" alt="logo" with ="600" height="600">
-
   `
 
   errorclass.innerHTML = errorString
@@ -304,7 +302,6 @@ function welcome(message){  //welcome not html injection
       font-size: 45px;
       color: lightgreen;
     }
-
     /*------------------------ Animation -----------------------*/
     .checkmark__circle {
       stroke-dasharray: 166;
@@ -355,7 +352,6 @@ function welcome(message){  //welcome not html injection
       }
     }
   </style>
-
     <div class="authDiv">
       <p>Welcome ${message.slice(0, -1)}</p>
     </div>
