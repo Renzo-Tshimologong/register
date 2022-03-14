@@ -10,8 +10,20 @@ const database = firebase.firestore();
 const userCollection = database.collection(`users`);
 const currentDate = new Date();
 const day = currentDate.getDay();
+let dynamicDate = document.getElementById('date');
 const present = [];
+let dateFormat = '';
+dynamicDate.addEventListener('change', ()=>{
 
+    let value = dynamicDate.value;
+
+            let year = value[0] + value[1] + value[2]+ value[3];
+            let month = value[5] + value[6];
+            let day = value[8] + value[9];
+            dateFormat = `${day}-${month}-${year}`;
+            dynamicDate.value = dateFormat
+            console.log(dateFormat);
+})
 function statsLogic(){
     // ---------------------------------Admin UI---------------------------------------------------------//
     if (currentUser === "Renzo1" || currentUser === "Renzo2") {
@@ -26,76 +38,90 @@ function statsLogic(){
         table.style.display = "inline-block";
     
         
+        
     
         let formatDate = date.replaceAll('/','-');
-        const adminCollection = database.collection('admin');
-    
-        const users = ["Renzo", "Molefe"];
-    
-        let userData = [];
-       
-       
-    
+
         
+        
+        
+        
+        const adminCollection = database.collection('admin');
+        console.log(formatDate)
+        const users = ["Renzo", "Molefe", "Barbara"];
     
-        users.map(user=>{
+        const userData = [];
+       
+       
     
-            adminCollection.doc(`${formatDate}`).collection(user).doc('1').get().then(data=>{
+    
+        console.log(dynamicDate.defaultValue)
+        for(let i = 0; i < users.length; i++){
+            adminCollection.doc(`${dateFormat||formatDate}`).collection(users[i]).doc('1').get().then(data=>{
                 if(data.exists){
                    
-                        if(hour >= '10'){
-                            adminCollection.doc(`${formatDate}`).collection(user).doc('1').update({
-                                signature:'absent'
-                            }).catch((e)=>console.error(e));
-                            userCollection.doc(user).collection('day').doc(day.toString()).get().then(data=>{
-                                if(data.exists){
+                        // if(hour >= '10'){
+                        //     adminCollection.doc(`${formatDate}`).collection(users[i]).doc('1').update({
+                        //         signature:'absent'
+                        //     }).catch((e)=>console.error(e));
+                        //     userCollection.doc(users[i]).collection('day').doc(day.toString()).get().then(data=>{
+                        //         if(data.exists){
         
-                                }else{
-                                    userCollection.doc(user).collection('day').doc(day.toString()).set({
-                                        first: user,
-                                        time: time,
-                                        date: date,
-                                        day: currentDate.getDay(),
-                                        present: 'absent',
+                        //         }else{
+                        //             userCollection.doc(users[i]).collection('day').doc(day.toString()).set({
+                        //                 first: users[x],
+                        //                 time: time,
+                        //                 date: date,
+                        //                 day: currentDate.getDay(),
+                        //                 present: 'absent',
           
-                                    })
-                                }
-                            })
-                        }
+                        //             })
+                        //         }
+                        //     })
+                        // }
                    
                     
-                    userData = [data.data()]
+                    userData[i] = data.data();
                  
-                    
+                    console.log(data.data());
     
-                    for(let x = 0; x< userData.length; x++){
-    
-                        let tr = document.createElement('tr');
-                        tr.className = "item";
-                        let td1 = document.createElement('td');
-                        let td2 = document.createElement('td');
-                        let td3 = document.createElement('td');
-                
-                        td1.className = 'username';
-                        td2.className = 'date';
-                        td3.className = 'signature';
-
-                        td1.innerText = userData[x].name.slice(0,-1);
-                        td2.innerText = userData[x].date;
-                        td3.innerText = userData[x].signature;
-                        tr.appendChild(td1);
-                        tr.appendChild(td2);
-                        tr.appendChild(td3);
-                        table.appendChild(tr);
-    
-                        
-                    }
-                    daysContainer.remove()
-                    chartContainer.remove()
+                     
                 }
                 
+        
+    
+                    let tr = document.createElement('tr');
+                    tr.className = "item";
+                    let td1 = document.createElement('td');
+                    let td2 = document.createElement('td');
+                    let td3 = document.createElement('td');
+            
+                    td1.className = 'username';
+                    td2.className = 'date';
+                    td3.className = 'signature';
+
+                    td1.innerText = userData[i].name.slice(0,-1);
+                    td2.innerText = userData[i].date;
+                    td3.innerText = userData[i].signature;
+                    tr.appendChild(td1);
+                    tr.appendChild(td2);
+                    tr.appendChild(td3);
+                    table.appendChild(tr);
+
+               
+                daysContainer.remove()
+                chartContainer.remove()
             })
-        })
+
+            console.log(userData);
+        
+        }
+        
+    
+        
+    
+            
+        
         
         const daysContainer = document.querySelector(".daysContainer")
         const chartContainer = document.querySelector(".chartContainer")
@@ -164,6 +190,8 @@ function statsLogic(){
     }
 }
 statsLogic();
+document.getElementById('query').addEventListener('click', statsLogic)
+
 
 
 
