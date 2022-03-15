@@ -26,13 +26,14 @@ dynamicDate.addEventListener('change', ()=>{
 })
 function statsLogic(){
     // ---------------------------------Admin UI---------------------------------------------------------//
-    if (currentUser === "Renzo1" || currentUser === "Renzo2") {
+    if (currentUser === "Molefe1" || currentUser === "Molefe2") {
         title.innerText = `Hello, ${currentUser.slice(0,-1)}!`;
        
         const date = currentDate.toLocaleDateString();
         
         const time = currentDate.toLocaleTimeString();
         const hour = time[0] + time[1];
+        const day = currentDate.getDay();
         
         // displays table when admin
         table.style.display = "inline-block";
@@ -144,56 +145,79 @@ function statsLogic(){
 
         // hides table when not admin
         table.style.display = "none";
-        for(let x = 1; x < 6; x++){
-        
-            userCollection.doc(`${currentUser.slice(0,-1)}`).collection('day').doc(x.toString()).get().then(user=>{
-                if(user.exists){
-                    console.log(user.data());
-                    let username = user.data().first;
-                    let time = user.data().time;
-                    let date = user.data().date;
-                    let pres = user.data().present;
-                    console.log(pres);
-                    if(currentUser === username){
-                        title.innerText = `Hello, ${username.slice(0,-1)}!`;
-        
-                        
-                    }
-        
-                    let section = document.getElementById(x.toString());
-                    if(section.id === x.toString()){
-                        section.childNodes[3].innerText = date;
-                        section.childNodes[5].innerText = time;
-                        section.childNodes[7].innerText = pres;
-                        present[x] = pres;
-                        console.log(present[x]);
-                        let massPopChart = new Chart(MyChart, {
-                            type:'bar',
-                            data:{
-                                labels:['Days Attended', 'Days Absent'],
-                                datasets:[{
-                                    label:'Register',
-                                    data:[present[x], 1],
-                                    backgroundColor:['#0b2343', '#ffcc05'],
-                                    borderWidth: 1,
-                                    borderColor:'white',
-                                    hoverBorderColor:'orange'
-                                }],
-                            },
-                            options:{
-                                title:{
-                                    display:true,
-                                    text:'The Days Marking The Register',
-                                    fontSize: 25,
-                                }
-                            }
-                
-                        })
-                    }
-                
+
+        userCollection.doc(`${currentUser.slice(0,-1)}`).collection('day').doc(day.toString()).get().then(today=>{
+            if(today.exists){
+                let currentDay = currentDate.toLocaleDateString();
+                currentDay = currentDay.toLocaleString();
+                if(today.data().date === currentDay){
+
+                    console.log('You have already logged in today');
                 }
-            }).catch(error=> console.error(error));
-        }
+               
+                
+            }
+            
+        }).catch(error=>{
+            console.error(error);
+        }).finally(()=>{
+
+            for(let x = 1; x < 6; x++){
+        
+                userCollection.doc(`${currentUser.slice(0,-1)}`).collection('day').doc(x.toString()).get().then(user=>{
+    
+    
+    
+                    if(user.exists){
+                        console.log(user.data());
+                        let username = user.data().first;
+                        let time = user.data().time;
+                        let date = user.data().date;
+                        let pres = user.data().present;
+                        console.log(pres);
+                        if(currentUser === username){
+                            title.innerText = `Hello, ${username.slice(0,-1)}!`;
+            
+                            
+                        }
+            
+                        let section = document.getElementById(x.toString());
+                        if(section.id === x.toString()){
+                            section.childNodes[3].innerText = date;
+                            section.childNodes[5].innerText = time;
+                            section.childNodes[7].innerText = pres;
+                            present[x] = pres;
+                            console.log(present[x]);
+                            let massPopChart = new Chart(MyChart, {
+                                type:'bar',
+                                data:{
+                                    labels:['Days Attended', 'Days Absent'],
+                                    datasets:[{
+                                        label:'Register',
+                                        data:[present[x], 1],
+                                        backgroundColor:['#0b2343', '#ffcc05'],
+                                        borderWidth: 1,
+                                        borderColor:'white',
+                                        hoverBorderColor:'orange'
+                                    }],
+                                },
+                                options:{
+                                    title:{
+                                        display:true,
+                                        text:'The Days Marking The Register',
+                                        fontSize: 25,
+                                    }
+                                }
+                    
+                            })
+                        }
+                    
+                    }
+                }).catch(error=> console.error(error));
+            }
+        })
+        
+
     
     }
 }

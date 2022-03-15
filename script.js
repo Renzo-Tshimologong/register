@@ -48,7 +48,10 @@ const errorclass = document.querySelector('.errorClass')
 
 const date = new Date().getDay();
 const currentTime = new Date().getHours();
-let numUnknown = 0
+let numUnknown = 0;
+const currentDate = new Date();
+const day = currentDate.getDay();
+const currentUser = sessionStorage.getItem('username');
 
 function dateTimeRestriction(){
   const dateTimeError = 
@@ -409,13 +412,28 @@ function timeFunction() { // move to the next page after 3 seconds
 
   //-------------------------------------------------------------Error Handling Block----------------------------//
   try{
-    let docRef = userCollection.doc(`${userName.slice(0,-1)}`).collection('day').doc(day.toString()).set({
-      first: userName,
-      time: StringTime,
-      date: StringDate,
-      day: currentDate.getDay(),
-      present:'present',
-    })
+    userCollection.doc(`${currentUser.slice(0,-1)}`).collection('day').doc(day.toString()).get().then(today=>{
+      if(today.exists){
+          let currentDay = currentDate.toLocaleDateString();
+          currentDay = currentDay.toLocaleString();
+          if(today.data().date === currentDay){
+
+              console.log('You have already logged in today');
+          }else{
+            userCollection.doc(`${userName.slice(0,-1)}`).collection('day').doc(day.toString()).set({
+              first: userName,
+              time: StringTime,
+              date: StringDate,
+              day: currentDate.getDay(),
+              present:'present',
+            })
+          }
+          
+          
+      }
+      
+  })
+    
     console.log("document written with ID: ", docRef.id)
   }catch(e){
     console.error(e);
