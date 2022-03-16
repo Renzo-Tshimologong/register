@@ -372,7 +372,7 @@ function welcome(message){  //welcome not html injection
 function loadLabeledImages() {
   // const labels = ['Eight','Five','Four','Molefe','Nine','Renzo','Seven','Six','Ten','v1','v2','v3','v4','v5','v6','v7','v8','v9']
   // const labels = ['Renzo1','Renzo2','s1','s2','t1','t2','u1','u2','v1','v2','w1','w2','Molefe1','Molefe2','x1','x2','y1','y2','z1','z2']
-  const labels = ['Renzo1','Renzo2','Molefe1','Molefe2']
+  const labels = ['Renzo1','Renzo2','Molefe1','Molefe2', 'Barbara1', 'Barbara2'];
   return Promise.all(
     labels.map(async label => {
       const descriptions = []
