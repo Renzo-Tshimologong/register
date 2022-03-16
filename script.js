@@ -53,6 +53,9 @@ const currentDate = new Date();
 const day = currentDate.getDay();
 const currentUser = sessionStorage.getItem('username');
 
+let inDB = 0
+const lastClass = document.querySelector('.lastClass');
+
 function dateTimeRestriction(){
   const dateTimeError = 
   `
@@ -216,6 +219,40 @@ function errorAnimation(){
 }
 //--------------------------------------------------------------- End Error Function-------------------------------------------------------------------//
 
+function numFaceDetc(){
+  const numFaceDetcString = 
+  `
+    <style>
+      .errorClass{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+    <img src="images/one_person.gif" alt="logo" with ="600" height="600">
+  `
+  errorclass.innerHTML = numFaceDetcString
+  setTimeout(function(){
+    window.location = 'index.html'; }, 13000);
+}
+
+//--------------------------------------------------------------- Already registered Function-------------------------------------------------------------------//
+function registered(){
+  const registeredString = 
+  `
+    <style>
+      .lastClass{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+    <img src="images/registered.gif" alt="logo" with ="600" height="600">
+  `
+  lastClass.innerHTML = registeredString
+  setTimeout(function(){
+    window.location = 'index.html'; }, 10000);
+}
 
 video.addEventListener('play', () => {
 
@@ -250,6 +287,10 @@ video.addEventListener('play', () => {
     
     if (detections.length > 1) { // still going to work on this one
       console.log("2 faces detected");
+      stopStreamedVideo(video);
+      removeCanvas.remove() 
+      videoDiv.remove()
+      numFaceDetc()
     }else{
       
       
@@ -363,8 +404,8 @@ function welcome(message){  //welcome not html injection
       <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
     </svg>
   `
-  
   camDiv.innerHTML = welcomeMessage
+
 }
 //------------------------------------------------------------------------End Welcome Function-------------------------------------------------//
 
@@ -372,7 +413,7 @@ function welcome(message){  //welcome not html injection
 function loadLabeledImages() {
   // const labels = ['Eight','Five','Four','Molefe','Nine','Renzo','Seven','Six','Ten','v1','v2','v3','v4','v5','v6','v7','v8','v9']
   // const labels = ['Renzo1','Renzo2','s1','s2','t1','t2','u1','u2','v1','v2','w1','w2','Molefe1','Molefe2','x1','x2','y1','y2','z1','z2']
-  const labels = ['Renzo1','Renzo2','Molefe1','Molefe2']
+  const labels = ['Barbara1','Barbara2','Renzo1','Renzo2','Molefe1','Molefe2']
   return Promise.all(
     labels.map(async label => {
       const descriptions = []
@@ -392,9 +433,20 @@ function loadLabeledImages() {
 //----------------------------------------------------------------------End Labels Function----------------------------------------------------//
 
 //-------------------------------------------------------------------Navigates to the Next Page-----------------------------------------------------//
-function timeFunction() { // move to the next page after 3 seconds
-  setTimeout(function(){
-  window.location = 'stats.html'; }, 3000);
+function timeFunction() {// move to the next page after 3 seconds
+
+    setTimeout(function(){
+      if (inDB > 0) {
+        console.log(inDB);
+        camDiv.remove();
+        registered()
+        return;
+      }
+      else{
+        window.location = 'stats.html'; 
+      }
+    }, 3000);
+
  }
 //-------------------------------------------------------------------End Navigates to the Next Page-----------------------------------------------------//
 
@@ -411,14 +463,17 @@ function timeFunction() { // move to the next page after 3 seconds
   const day = currentDate.getDay(); 
 
   //-------------------------------------------------------------Error Handling Block----------------------------//
+
   try{
     userCollection.doc(`${currentUser.slice(0,-1)}`).collection('day').doc(day.toString()).get().then(today=>{
       if(today.exists){
           let currentDay = currentDate.toLocaleDateString();
           currentDay = currentDay.toLocaleString();
           if(today.data().date === currentDay){
-
-              console.log('You have already logged in today');
+            inDB = 1;
+            
+            console.log('You have already logged in today');
+            // registered()
           }else{
             userCollection.doc(`${userName.slice(0,-1)}`).collection('day').doc(day.toString()).set({
               first: userName,

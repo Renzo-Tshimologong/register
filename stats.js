@@ -26,7 +26,7 @@ dynamicDate.addEventListener('change', ()=>{
 })
 function statsLogic(){
     // ---------------------------------Admin UI---------------------------------------------------------//
-    if (currentUser === "Molefe1" || currentUser === "Molefe2") {
+    if (currentUser === 'Barbara1' || currentUser === 'Barbara2') {
         title.innerText = `Hello, ${currentUser.slice(0,-1)}!`;
        
         const date = currentDate.toLocaleDateString();
@@ -145,7 +145,8 @@ function statsLogic(){
 
         // hides table when not admin
         table.style.display = "none";
-
+        document.getElementById('date').style.display ="none";
+        document.getElementById('query').style.display = "none";
         userCollection.doc(`${currentUser.slice(0,-1)}`).collection('day').doc(day.toString()).get().then(today=>{
             if(today.exists){
                 let currentDay = currentDate.toLocaleDateString();
@@ -224,8 +225,3 @@ function statsLogic(){
 statsLogic();
 document.getElementById('query').addEventListener('click', statsLogic)
 
-
-
-
-
- 
