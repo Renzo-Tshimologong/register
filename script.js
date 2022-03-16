@@ -489,7 +489,6 @@ function timeFunction() {// move to the next page after 3 seconds
       
   })
     
-    console.log("document written with ID: ", docRef.id)
   }catch(e){
     console.error(e);
   }
