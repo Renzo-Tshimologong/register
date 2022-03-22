@@ -221,7 +221,7 @@ function statsLogic(){
 
     
     }
-}
+};
 statsLogic();
-document.getElementById('query').addEventListener('click', statsLogic)
+document.getElementById('query').addEventListener('click', statsLogic);
 
