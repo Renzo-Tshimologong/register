@@ -437,7 +437,6 @@ function timeFunction() {// move to the next page after 3 seconds
 
     setTimeout(function(){
       if (inDB > 0) {
-        console.log(inDB);
         camDiv.remove();
         registered()
         return;
@@ -472,8 +471,6 @@ function timeFunction() {// move to the next page after 3 seconds
           if(today.data().date === currentDay){
             inDB = 1;
             
-            console.log('You have already logged in today');
-            // registered()
           }
             
           
@@ -487,7 +484,6 @@ function timeFunction() {// move to the next page after 3 seconds
           day: currentDate.getDay(),
           present:'present',
         })
-        console.log('I have ran');
       }
       
   })
@@ -504,9 +500,7 @@ function Admin(userName){
   const database = firebase.firestore();
   const currentDate = new Date();
   const date = currentDate.toLocaleDateString();
-  const day = currentDate.getDay().toString(); 
   let formatDate = date.replaceAll('/','-');
-  console.log(formatDate)
   const adminCollection = database.collection('admin/');
   const StringTime =  currentDate.toLocaleTimeString();
   try{
