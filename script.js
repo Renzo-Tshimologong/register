@@ -474,17 +474,20 @@ function timeFunction() {// move to the next page after 3 seconds
             
             console.log('You have already logged in today');
             // registered()
-          }else{
-            userCollection.doc(`${userName.slice(0,-1)}`).collection('day').doc(day.toString()).set({
-              first: userName,
-              time: StringTime,
-              date: StringDate,
-              day: currentDate.getDay(),
-              present:'present',
-            })
           }
+            
           
           
+          
+      }else{
+        userCollection.doc(`${userName.slice(0,-1)}`).collection('day').doc(day.toString()).set({
+          first: userName,
+          time: StringTime, 
+          date: StringDate,
+          day: currentDate.getDay(),
+          present:'present',
+        })
+        console.log('I have ran');
       }
       
   })
