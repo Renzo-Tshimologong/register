@@ -1,0 +1,22 @@
+{
+  "name": "register",
+  "version": "1.0.0",
+  "description": "facial recognition system",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Renzo-Tshimologong/register.git"
+  },
+  "author": "Sylvorenzo Jacques Koffi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Renzo-Tshimologong/register/issues"
+  },
+  "homepage": "https://github.com/Renzo-Tshimologong/register#readme",
+  "dependencies": {
+    "firebase": "^9.6.8"
+  }
+}
